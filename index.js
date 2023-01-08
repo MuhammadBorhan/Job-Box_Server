@@ -9,7 +9,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q66zrl2.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://admin:admin@cluster0.q66zrl2.mongodb.net/?retryWrites=true&w=majority`;
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@job-box.czoks0u.mongodb.net/?retryWrites=true&w=majority`;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.f9jj4or.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -93,12 +93,9 @@ const run = async () => {
 
     app.patch("/reply", async (req, res) => {
       const userId = req.body.userId;
+      const jobId = req.body.jobId;
       const reply = req.body.reply;
-      console.log(reply);
-      console.log(userId);
-
-      const filter = { "queries.id": ObjectId(userId) };
-
+      const filter = { "queries.id": ObjectId(userId), _id: ObjectId(jobId) };
       const updateDoc = {
         $push: {
           "queries.$[user].reply": reply,
