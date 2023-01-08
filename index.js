@@ -45,6 +45,13 @@ const run = async () => {
       res.send({ status: false });
     });
 
+    // get employer and candidate
+    app.get("/users", async (req, res) => {
+      const cursor = userCollection.find({});
+      const result = await cursor.toArray();
+      res.send({ status: true, data: result });
+    });
+
     app.patch("/apply", async (req, res) => {
       const userId = req.body.userId;
       const jobId = req.body.jobId;
