@@ -24,6 +24,13 @@ const run = async () => {
     const db = client.db("jobbox");
     const userCollection = db.collection("user");
     const jobCollection = db.collection("job");
+    const newCollection = db.collection("new");
+
+    app.post("/newData", async (req, res) => {
+      const newData = req.body;
+      const result = await newCollection.insertOne(newData);
+      res.send(result);
+    });
 
     app.post("/user", async (req, res) => {
       const user = req.body;
