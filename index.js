@@ -32,6 +32,12 @@ const run = async () => {
       res.send(result);
     });
 
+    app.get("/AllNewData", async (req, res) => {
+      const cursor = newCollection.find({});
+      const result = await cursor.toArray();
+      res.send({ status: true, data: result });
+    });
+
     app.post("/user", async (req, res) => {
       const user = req.body;
 
