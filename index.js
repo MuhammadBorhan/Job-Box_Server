@@ -24,16 +24,16 @@ const run = async () => {
     const db = client.db("jobbox");
     const userCollection = db.collection("user");
     const jobCollection = db.collection("job");
-    const newCollection = db.collection("new");
+    const allApplyCollection = db.collection("allApply");
 
-    app.post("/newData", async (req, res) => {
+    app.post("/postApply", async (req, res) => {
       const newData = req.body;
-      const result = await newCollection.insertOne(newData);
+      const result = await allApplyCollection.insertOne(newData);
       res.send(result);
     });
 
-    app.get("/AllNewData", async (req, res) => {
-      const cursor = newCollection.find({});
+    app.get("/getAllApply", async (req, res) => {
+      const cursor = allApplyCollection.find({});
       const result = await cursor.toArray();
       res.send({ status: true, data: result });
     });
