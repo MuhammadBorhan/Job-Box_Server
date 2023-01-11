@@ -159,6 +159,13 @@ const run = async () => {
       res.send({ status: true, data: result });
     });
 
+    app.delete("/jobs/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await jobCollection.deleteOne(query);
+      res.send(result);
+    });
+
     app.post("/job", async (req, res) => {
       const job = req.body;
 
